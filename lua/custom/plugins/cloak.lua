@@ -1,24 +1,16 @@
----@module 'lazy'
----@type LazySpec
-return {
-  {
-    'laytan/cloak.nvim',
-    config = function()
-      require('cloak').setup {
-        enabled = true,
-        cloack_character = '*',
-        highlight_group = 'Comment',
-        patterns = {
-          {
-            file_pattern = {
-              '.env*',
-              'wrangler.toml',
-              '.dev.vars',
-            },
-            cloak_pattern = '=.+',
-          },
-        },
-      }
-    end,
+vim.pack.add { 'https://github.com/laytan/cloak.nvim' }
+require('cloak').setup {
+  enabled = true,
+  cloack_character = '*',
+  highlight_group = 'Comment',
+  patterns = {
+    {
+      file_pattern = {
+        '.env*',
+        'wrangler.toml',
+        '.dev.vars',
+      },
+      cloak_pattern = '=.+',
+    },
   },
 }

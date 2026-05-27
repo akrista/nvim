@@ -1,5 +1,1 @@
----@module 'lazy'
----@type LazySpec
-return {
-  { 'github/copilot.vim' },
-}
+vim.pack.add { 'https://github.com/github/copilot.vim' }
