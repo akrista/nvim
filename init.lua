@@ -710,7 +710,7 @@ do
     -- But for many setups, the LSP (`ts_ls`) will work just fine
     -- ts_ls = {},
 
-    stylua = {}, -- Used to format Lua code
+    stylua = (vim.fn.exists '$TERMUX_VERSION' == 0) and {} or nil,
 
     -- Special Lua Config, as recommended by neovim help docs
     lua_ls = {
@@ -765,6 +765,11 @@ do
   --
   -- You can press `g?` for help in this menu.
   local ensure_installed = vim.tbl_keys(servers or {})
+
+  if vim.fn.exists '$TERMUX_VERSION' == 1 then
+    ensure_installed = vim.tbl_filter(function(name) return name ~= 'lua_ls' and name ~= 'stylua' end, ensure_installed)
+  end
+
   vim.list_extend(ensure_installed, {
     -- You can add other tools here that you want Mason to install
   })
@@ -803,6 +808,7 @@ do
     },
     -- You can also specify external formatters in here.
     formatters_by_ft = {
+      lua = (vim.fn.exists '$TERMUX_VERSION' == 1) and { 'stylua' } or {},
       -- rust = { 'rustfmt' },
       -- Conform can also run multiple formatters sequentially
       -- python = { "isort", "black" },
